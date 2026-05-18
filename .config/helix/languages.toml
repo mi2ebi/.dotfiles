@@ -1,0 +1,71 @@
+# rust
+[language-server.rust-analyzer.config]
+check.overrideCommand = ["cargo", "xnitpick"]
+# check.overrideCommand = ["cargo", "clippy"]
+cargo.features = "all"
+diagnostics = {experimental.enable = true, styleLints.enable = true}
+inlayHints = {closureCaptureHints.enable = true, closureReturnTypeHints.enable = "always"}
+
+# typst
+[[language]]
+name = "typst"
+language-servers = [{name = "tinymist", except-features = ["signature-help"]}]
+auto-format = true
+
+[language-server.tinymist.config]
+exportPdf = "onType"
+preview.browsing.args = ["--data-plane-host=127.0.0.1:23635", "--invert-colors=auto", "--open"]
+
+# html
+[[language]]
+name = "html"
+language-servers = ["vscode-html-language-server", "emmet-language-server"]
+auto-format = false
+
+[language-server.emmet-language-server]
+command = "emmet-language-server"
+args = ["--stdio"]
+
+# css
+[[language]]
+name = "css"
+language-servers = ["vscode-css-language-server", "emmet-language-server"]
+auto-format = false
+
+# javascript
+[[language]]
+name = "javascript"
+auto-format = false
+language-servers = [{name = "typescript-language-server", except-features = ["inlay-hints"]}]
+
+# typescript
+[[language]]
+name = "typescript"
+auto-format = true
+
+# haskell
+[[language]]
+name = "haskell"
+auto-format = true
+  
+# nu
+[[language]]
+name = "nu"
+auto-format = true
+language-servers = [{name = "nu-lsp", except-features = ["signature-help"]}]
+
+# lua
+[[language]]
+name = "lua"
+formatter = {command = "stylua", args = ["--search-parent-directories", "-"]}
+auto-format = true
+
+# tex
+[[language]]
+name = "latex"
+indent = {tab-width = 2, unit = "  "}
+
+# cpp
+[[language]]
+name = "cpp"
+auto-format = true

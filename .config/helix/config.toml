@@ -1,0 +1,76 @@
+theme = "modus_vivendi_tinted"
+
+[editor]
+color-modes = true
+continue-comments = false
+rainbow-brackets = true
+path-completion = false
+bufferline = "multiple"
+cursorline = true
+
+[editor.file-picker]
+hidden = false
+
+[editor.inline-diagnostics]
+cursor-line = "hint"
+other-lines = "disable"
+
+[editor.auto-save]
+after-delay.enable = true
+after-delay.timeout = 10
+
+[editor.soft-wrap]
+enable = true
+# max-wrap = 0
+wrap-indicator = ""
+
+[editor.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'"' = '"'
+'`' = '`'
+'‘' = '’'
+'“' = '”'
+
+[editor.lsp]
+display-messages = true
+display-inlay-hints = true
+
+[editor.statusline]
+right = ["diagnostics", "primary-selection-length", "selections", "register", "position"]
+diagnostics = ["hint", "info", "warning", "error"]
+
+[editor.smart-tab]
+enable = false
+
+[editor.word-completion]
+trigger-length = 4
+
+[editor.whitespace.render]
+space = "none"
+tab = "all"
+nbsp = "all"
+nnbsp = "all"
+newline = "all"
+[editor.whitespace.characters]
+newline = "↵"
+
+[keys.normal]
+  X = "select_line_above"
+# eg for typst preview
+C-p = ":lsp-workspace-command"
+# easier format
+esc = ":w"
+# split lines
+  Z = "@i<ret><up><end><esc>"
+# make c/d not yank
+  c = "change_selection_noyank"
+A-c = "change_selection"        # = yc
+  d = "delete_selection_noyank"
+A-d = "delete_selection"        # = yd
+# close a file
+C-q = [":buffer-close", "wclose"]
+
+[keys.select]
+  X = "extend_line_above"

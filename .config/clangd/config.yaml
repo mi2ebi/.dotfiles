@@ -1,0 +1,24 @@
+# -*- mode: yaml-ts -*-
+CompileFlags:
+  Add:
+    - -Weverything
+    - -Wno-c++98-compat
+    - -Wno-c++98-compat-pedantic
+    - -Wno-unsafe-buffer-usage
+    - -Wno-sign-conversion
+Diagnostics:
+  UnusedIncludes: Strict
+  ClangTidy:
+    Add: [modernize-*, bugprone-*, readability-*, performance-*, cppcoreguidelines-*]
+    Remove:
+      - modernize-use-trailing-return-type
+      - readability-braces-around-statements
+      - readability-identifier-length
+      - readability-implicit-bool-conversion
+      - readability-isolate-declaration
+      - readability-magic-numbers
+      - readability-math-missing-parentheses
+      - readability-uppercase-literal-suffix
+      - cppcoreguidelines-avoid-magic-numbers
+      - cppcoreguidelines-owning-memory
+      - cppcoreguidelines-pro-bounds-pointer-arithmetic

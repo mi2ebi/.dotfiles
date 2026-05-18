@@ -1,0 +1,77 @@
+[alias]
+nitpick = """clippy --
+
+  -W clippy::pedantic
+  -A clippy::must_use_candidate
+
+  -W clippy::nursery
+
+  -W clippy::create_dir
+  -W clippy::decimal_literal_representation
+  -W clippy::deref_by_slicing
+  -W clippy::doc_paragraphs_missing_punctuation
+  -W clippy::filetype_is_file
+  -W clippy::get_unwrap
+  -W clippy::if_then_some_else_none
+  -W clippy::impl_trait_in_params
+  -W clippy::infinite_loop
+  -W clippy::lossy_float_literal
+  -W clippy::map_err_ignore
+  -W clippy::map_with_unused_argument_over_ranges
+  -W clippy::missing_assert_message
+  -W clippy::missing_asserts_for_indexing
+  -W clippy::multiple_inherent_impl
+  -W clippy::needless_raw_strings
+  -W clippy::panic_in_result_fn
+  -W clippy::precedence_bits
+  -W clippy::rc_buffer
+  -W clippy::rc_mutex
+  -W clippy::redundant_type_annotations
+  -W clippy::renamed_function_params
+  -W clippy::rest_pat_in_fully_bound_structs
+  -W clippy::same_name_method
+  -W clippy::self_named_module_files
+  -W clippy::semicolon_inside_block
+  -W clippy::unseparated_literal_suffix
+  -W clippy::unused_trait_names
+  -W clippy::verbose_file_reads
+  
+"""
+xnitpick = """clippy --message-format=json-diagnostic-rendered-ansi --
+  
+  -W clippy::pedantic
+  -A clippy::must_use_candidate
+
+  -W clippy::nursery
+
+  -W clippy::create_dir
+  -W clippy::decimal_literal_representation
+  -W clippy::deref_by_slicing
+  -W clippy::doc_paragraphs_missing_punctuation
+  -W clippy::filetype_is_file
+  -W clippy::get_unwrap
+  -W clippy::if_then_some_else_none
+  -W clippy::impl_trait_in_params
+  -W clippy::infinite_loop
+  -W clippy::lossy_float_literal
+  -W clippy::map_err_ignore
+  -W clippy::map_with_unused_argument_over_ranges
+  -W clippy::missing_assert_message
+  -W clippy::missing_asserts_for_indexing
+  -W clippy::multiple_inherent_impl
+  -W clippy::needless_raw_strings
+  -W clippy::panic_in_result_fn
+  -W clippy::precedence_bits
+  -W clippy::rc_buffer
+  -W clippy::rc_mutex
+  -W clippy::redundant_type_annotations
+  -W clippy::renamed_function_params
+  -W clippy::rest_pat_in_fully_bound_structs
+  -W clippy::same_name_method
+  -W clippy::self_named_module_files
+  -W clippy::semicolon_inside_block
+  -W clippy::unseparated_literal_suffix
+  -W clippy::unused_trait_names
+  -W clippy::verbose_file_reads
+  
+"""

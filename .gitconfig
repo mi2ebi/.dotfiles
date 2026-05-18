@@ -1,0 +1,22 @@
+[user]
+	email = merrybot47@gmail.com
+	name = mi2ebi
+[init]
+	defaultBranch = main
+[pull]
+	rebase = true
+[rebase]
+	autoStash = true
+[alias]
+	zash = stash
+	fclock = !git checkout --theirs Cargo.lock && cargo check && git add Cargo.lock
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[rerere]
+	enabled = true
+[core]
+	autocrlf = false

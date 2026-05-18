@@ -1,0 +1,42 @@
+[git_status]
+format = "([\\[($ahead_behind)$conflicted$staged$deleted$modified$renamed$typechanged$untracked$stashed\\]](bold black) )"
+ahead       = "[+$count](bold green)"
+behind      = "[-$count](bold red)"
+diverged    = "[+$ahead_count](bold green)[-$behind_count](bold red)"
+conflicted  = "[!](bold red)"
+staged      = "[s](bold green)"
+deleted     = "[d](bold red)"
+modified    = "[m](bold cyan)"
+renamed     = "[r](bold cyan)"
+typechanged = "[t](bold cyan)"
+untracked   = "[a](bold blue)"
+stashed     = "[z](bold purple)" # zashed <5
+
+[battery]
+full_symbol        = "• "
+charging_symbol    = "↑ "
+discharging_symbol = "↓ "
+unknown_symbol     = "? "
+empty_symbol       = "! "
+[[battery.display]]
+threshold = 20
+style = "bold red"
+[[battery.display]]
+threshold = 30
+style = "bold yellow"
+
+[status]
+disabled = false
+format = "[$signal_name:$int]($style) "
+
+[erlang]
+symbol = "ⓔ "
+
+[nodejs]
+symbol = "⬢ "
+
+[pulumi]
+symbol = "🧊 "
+
+[typst]
+symbol = "t "

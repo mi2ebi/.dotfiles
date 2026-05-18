@@ -1,0 +1,58 @@
+# -*- mode: yaml-ts -*-
+
+BasedOnStyle: LLVM
+
+# indentation
+IndentWidth: 2
+ConstructorInitializerIndentWidth: 2
+ContinuationIndentWidth: 2
+
+# alignment/spacing
+AlignAfterOpenBracket: false
+AlignOperands: AlignAfterOperator
+PointerAlignment: Right
+
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+
+# brackets
+BreakBeforeBraces: Attach
+RemoveBracesLLVM: true
+RemoveParentheses: ReturnStatement
+BreakAfterOpenBracketBracedList: true
+BreakAfterOpenBracketFunction: true
+BreakAfterOpenBracketIf: true
+BreakAfterOpenBracketLoop: true
+BreakAfterOpenBracketSwitch: true
+BreakBeforeCloseBracketBracedList: true
+BreakBeforeCloseBracketFunction: true
+BreakBeforeCloseBracketIf: true
+BreakBeforeCloseBracketLoop: true
+BreakBeforeCloseBracketSwitch: true
+
+# operators 
+BreakBeforeBinaryOperators: All
+BreakBeforeTernaryOperators: true
+BreakBinaryOperations:
+  Default: RespectPrecedence
+  PerOperator:
+    - Operators: ["<<", ">>"]
+      Style: Never
+
+# constructors
+BreakConstructorInitializers: AfterColon
+SpaceBeforeCtorInitializerColon: false
+
+# literals
+IntegerLiteralSeparator:
+  Binary: 4
+  Decimal: 3
+  Hex: 4
+NumericLiteralCase:
+  ExponentLetter: Lower
+  HexDigit: Lower
+  Prefix: Lower
+  Suffix: Lower
+
+# misc spacing
+SpaceBeforeRangeBasedForLoopColon: false
