@@ -1,0 +1,9 @@
+!.cabal
+!.cargo
+!.clang-format
+!.config
+!.emacs.d
+!.gitconfig
+!.gitignore
+!readme.md
+!stylua.toml
