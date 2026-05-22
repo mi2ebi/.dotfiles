@@ -6,6 +6,7 @@ BasedOnStyle: LLVM
 IndentWidth: 2
 ConstructorInitializerIndentWidth: 2
 ContinuationIndentWidth: 2
+IndentCaseLabels: true
 
 # alignment/spacing
 AlignAfterOpenBracket: false
@@ -33,11 +34,13 @@ BreakBeforeCloseBracketSwitch: true
 # operators 
 BreakBeforeBinaryOperators: All
 BreakBeforeTernaryOperators: true
-BreakBinaryOperations:
-  Default: RespectPrecedence
-  PerOperator:
-    - Operators: ["<<", ">>"]
-      Style: Never
+BreakBinaryOperations: RespectPrecedence
+# for clang-format 23:
+# BreakBinaryOperations:
+#   Default: RespectPrecedence
+#   PerOperator:
+#     - Operators: ["<<", ">>"]
+#       Style: Never
 
 # constructors
 BreakConstructorInitializers: AfterColon
