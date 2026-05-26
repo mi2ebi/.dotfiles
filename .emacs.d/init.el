@@ -101,15 +101,13 @@
   (ligature-set-ligatures 't '(
                                ("-" (rx (* "-") (? ">")))         ; -- -> --- -->
                                ("=" (rx (* "=") (? ">")))         ; == => === ==>
-                               ("~" (rx (* "~") (? ">")))         ; ~~ ~> ~~~ ~~>
                                ("+" (rx (+ "+")))                 ; ++ +++
                                ("_" (rx (+ "_")))                 ; __ ___
                                ("|" (rx (+ "|")))                 ; || |||
                                ("/" (rx (+ "/")))                 ; // ///
                                ("<" (rx (| (+ "<")                ; << <<<
                                            (: (+ "=") (? ">"))    ; <=> <== <==>
-                                           (: (+ "-") (? ">"))    ; <- <-> <-- <-->
-                                           (: (+ "~") (? ">"))))) ; <~ <~> <~~ <~~>
+                                           (: (+ "-") (? ">"))))) ; <- <-> <-- <-->
                                (">" (rx (| (+ ">") "=")))         ; >> >= >>>
                                ("." (rx (+ (any ".!?:"))))        ; .. .! .? .: ...
                                (":" (rx (+ (any ".!?:"))))        ; :: :! :? :. :::
@@ -122,16 +120,86 @@
 
 ;;; unicode font fallbacks
 
-;; scripts
-(set-fontset-font t 'latin "Noto Sans" nil 'append)
-(set-fontset-font t 'han "Noto Sans CJK JP")
-(set-fontset-font t 'kana "Noto Sans CJK JP")
-(set-fontset-font t 'hangul "Noto Sans CJK JP")
-(set-fontset-font t 'arabic "Noto Sans Arabic")
-(set-fontset-font t 'hebrew "Noto Sans Hebrew")
-(set-fontset-font t 'devanagari "Noto Sans Devanagari")
-(set-fontset-font t 'symbol "Noto Sans Symbols 2" nil 'append)
-;; ranges
+(set-fontset-font t '(#x03e2 . #x03ef) "Lato")
+(set-fontset-font t '(#x0590 . #x05ff) "Noto Sans Hebrew")
+(set-fontset-font t '(#x0600 . #x06ff) "Noto Sans Arabic")
+(set-fontset-font t '(#x0700 . #x077f) "Noto Sans Syriac Eastern")
+(set-fontset-font t '(#x0750 . #x077f) "Noto Sans Arabic")
+(set-fontset-font t '(#x0780 . #x07bf) "Noto Sans Thaana")
+(set-fontset-font t '(#x07c0 . #x07ff) "Noto Sans NKo")
+(set-fontset-font t '(#x0800 . #x083f) "Noto Sans Samaritan")
+(set-fontset-font t '(#x0840 . #x085f) "Noto Sans Mandaic")
+(set-fontset-font t '(#x0860 . #x086f) "Plangothic P2")
+(set-fontset-font t '(#x0870 . #x089f) "Noto Sans Arabic")
+(set-fontset-font t '(#x08a0 . #x08ff) "Noto Sans Arabic")
+(set-fontset-font t '(#x0900 . #x097f) "Noto Sans Devanagari")
+(set-fontset-font t '(#x0980 . #x09ff) "Noto Sans Bengali")
+(set-fontset-font t '(#x0a00 . #x0a7f) "Noto Sans Gurmukhi")
+(set-fontset-font t '(#x0a80 . #x0aff) "Noto Sans Gujarati")
+(set-fontset-font t '(#x0b00 . #x0b7f) "Noto Sans Oriya")
+(set-fontset-font t '(#x0b80 . #x0bff) "Noto Sans Tamil")
+(set-fontset-font t '(#x0c00 . #x0c7f) "Noto Sans Telugu")
+(set-fontset-font t '(#x0c80 . #x0cff) "Noto Sans Kannada")
+(set-fontset-font t '(#x0d00 . #x0d7f) "Noto Sans Malayalam")
+(set-fontset-font t '(#x0d80 . #x0dff) "Noto Sans Sinhala")
+(progn (set-fontset-font t '(#x0e00 . #x0e7f) "Noto Sans Thai")
+       (set-fontset-font t #x0e3f "iosevie"))
+(set-fontset-font t '(#x0e80 . #x0eff) "Noto Sans Lao")
+(set-fontset-font t '(#x0f00 . #x0fff) "Noto Serif Tibetan") ; todo plangothic p2 ?
+(set-fontset-font t '(#x1000 . #x109f) "Padauk")
+(set-fontset-font t '(#x10a0 . #x10ff) "Noto Sans Georgian")
+(set-fontset-font t '(#x1100 . #x11ff) "Noto Sans CJK KR")
+(set-fontset-font t '(#x1200 . #x137f) "Noto Sans Ethiopic")
+(set-fontset-font t '(#x1380 . #x139f) "Noto Sans Ethiopic")
+(set-fontset-font t '(#x13a0 . #x13ff) "Noto Sans Cherokee")
+(set-fontset-font t '(#x1400 . #x167f) "Noto Sans Canadian Aboriginal")
+(set-fontset-font t '(#x1680 . #x169f) "Noto Sans Ogham")
+(set-fontset-font t '(#x16a0 . #x16ff) "Noto Sans Runic")
+(set-fontset-font t '(#x1700 . #x171f) "Noto Sans Tagalog")
+(set-fontset-font t '(#x1720 . #x173f) "Noto Sans Hanunoo")
+(set-fontset-font t '(#x1740 . #x175f) "Noto Sans Buhid")
+(set-fontset-font t '(#x1760 . #x177f) "Noto Sans Tagbanwa")
+(set-fontset-font t '(#x1780 . #x17ff) "Noto Sans Khmer")
+(set-fontset-font t '(#x1800 . #x18af) "Noto Sans Mongolian")
+(set-fontset-font t '(#x18b0 . #x18ff) "Noto Sans Canadian Aboriginal")
+(set-fontset-font t '(#x1900 . #x194f) "Noto Sans Limbu")
+(set-fontset-font t '(#x1950 . #x197f) "Noto Sans Tai Le")
+(set-fontset-font t '(#x1980 . #x19df) "Noto Sans New Tai Lue")
+(set-fontset-font t '(#x19e0 . #x19ff) "Noto Sans Khmer")
+(set-fontset-font t '(#x1a00 . #x1a1f) "Noto Sans Buginese")
+(set-fontset-font t '(#x1a20 . #x1aaf) "Noto Sans Tai Tham")
+(progn (set-fontset-font t '(#x1ab0 . #x1aff) "Noto Sans" nil 'append)
+       (set-fontset-font t '(#x1ab0 . #x1aff) "Plangothic P2" nil 'append))
+(progn (set-fontset-font t '(#x1b00 . #x1b7f) "Noto Sans Balinese")
+       (set-fontset-font t '(#x1b00 . #x1b7f) "Plangothic P2" nil 'append))
+(set-fontset-font t '(#x1b80 . #x1bbf) "Noto Sans Sundanese")
+(set-fontset-font t '(#x1bc0 . #x1bff) "Noto Sans Batak")
+(set-fontset-font t '(#x1c00 . #x1c4f) "Noto Sans Lepcha")
+(set-fontset-font t '(#x1c50 . #x1c7f) "Noto Sans Ol Chiki")
+(set-fontset-font t '(#x1c90 . #x1cbf) "Noto Sans Georgian")
+(set-fontset-font t '(#x1cc0 . #x1ccf) "Noto Sans Sundanese")
+(progn (set-fontset-font t '(#x1cd0 . #x1cff) "Noto Sans Devanagari")
+       (set-fontset-font t '(#x1cd0 . #x1cff) "Noto Sans Bengali" nil 'append)
+       (set-fontset-font t '(#x1cd0 . #x1cff) "Plangothic P2" nil 'append))
+(progn (set-fontset-font t '(#x1dc0 . #x1dff) "iosevie")
+       (set-fontset-font t '(#x1dc0 . #x1dff) "Adwaita Sans" nil 'append)) ; a᷐ ?? why does it use noto serif
+(progn (set-fontset-font t '(#x20a0 . #x20cf) "iosevie")
+       (set-fontset-font t '(#x20a0 . #x20cf) "Lato" nil 'append)
+       (set-fontset-font t '(#x20a0 . #x20cf) "Noto Sans" nil 'append)
+       (set-fontset-font t '(#x20a0 . #x20cf) "Plangothic P2" nil 'append))
+(progn (set-fontset-font t '(#x20d0 . #x20ff) "iosevie")
+       (set-fontset-font t '(#x20d0 . #x20ff) "Noto Sans Math" nil 'append)
+       (set-fontset-font t '(#x20d0 . #x20ff) "Noto Sans Symbols" nil 'append))
+                                        ; these don't work either. in emacs' defense
+                                        ; they are mostly very dumb characters. like
+                                        ; who the fuck needs u+20e2 COMBINING SCREEN
+(progn (set-fontset-font t '(#x2100 . #x214f) "iosevie")
+       (set-fontset-font t '(#x2100 . #x214f) "STIX" nil 'append))
+
+(set-fontset-font t '(#x2d20 . #x2d2f) "Noto Sans Georgian")
+
+(set-fontset-font t '(#x11fc0 . #x11fff) "Noto Sans Tamil Supplement") ; ...why,
+
 (set-fontset-font t '(#x2600 . #x27bf) "Noto Color Emoji" nil 'append)
 (set-fontset-font t '(#x27c0 . #x2bff) "IBM Plex Math" nil 'append)
 (set-fontset-font t '(#x1d000 . #x1d1ff) "Noto Music" nil 'append)
@@ -141,6 +209,8 @@
 (set-fontset-font t '(#x20000 . #x2fa1f) "Plangothic P1" nil 'append)
 (set-fontset-font t '(#x30000 . #x323af) "Plangothic P2" nil 'append)
 ;; last resort
+(set-fontset-font t 'unicode "Plangothic P1" nil 'append)
+(set-fontset-font t 'unicode "Plangothic P2" nil 'append)
 (set-fontset-font t 'unicode "Unifont" nil 'append)
 (set-fontset-font t 'unicode "Unifont Upper" nil 'append)
 
