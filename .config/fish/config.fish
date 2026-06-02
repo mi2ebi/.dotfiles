@@ -14,7 +14,7 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 pyenv init - fish | source
 
 abbr -a g++++ "clang++ -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic"
-abbr -a dotfiles "/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+abbr -a dotfiles "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
 set -g fish_color_command f78fe7
 set -g fish_color_keyword 79a8ff --bold

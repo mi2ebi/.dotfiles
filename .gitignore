@@ -1,9 +1,9 @@
-*
-!*/
-!.cabal/**
-!.cargo/**
-!.config/**
-!.emacs.d/**
+/*
+!.cabal
+!.cargo
+!.config
+!.emacs.d
+
 !.clang-format
 !.gitconfig
 !.gitignore
