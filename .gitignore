@@ -1,9 +1,10 @@
 *
-!.cabal
-!.cargo
+!*/
+!.cabal/**
+!.cargo/**
+!.config/**
+!.emacs.d/**
 !.clang-format
-!.config
-!.emacs.d
 !.gitconfig
 !.gitignore
 !readme.md
