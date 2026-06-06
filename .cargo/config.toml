@@ -37,7 +37,7 @@ nitpick = """clippy --
   -W clippy::verbose_file_reads
   
 """
-xnitpick = """clippy --message-format=json-diagnostic-rendered-ansi --
+xnitpick = """clippy --message-format=json --all-targets --
   
   -W clippy::pedantic
   -A clippy::must_use_candidate

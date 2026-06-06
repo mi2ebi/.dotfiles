@@ -41,6 +41,7 @@
 ;;; env
 
 (setenv "PKG_CONFIG_PATH" "/usr/lib64/pkgconfig:/usr/share/pkgconfig")
+(add-to-list 'exec-path (expand-file-name "~/.cargo/bin"))
 
 ;;; local lisp
 
@@ -340,7 +341,7 @@
 (use-package eglot
   :bind ("C-." . eglot-code-actions)
   :hook
-  (c++-mode . eglot-ensure)
+  (c++-ts-mode . eglot-ensure)
   (rust-ts-mode . eglot-ensure)
   (eglot-managed-mode . (lambda ()
                     (add-hook 'before-save-hook #'eglot-format-buffer nil t)))
@@ -349,7 +350,8 @@
    eglot-workspace-configuration
    '(:rust-analyzer
      (:check
-      (:overrideCommand ["cargo" "xnitpick"])
+      (:overrideCommand ["sh" "-c"
+                         "cargo xnitpick && cargo doc --no-deps --message-format=json"])
       :cargo (:features "all")
       :diagnostics
       (:experimental (:enable t) :styleLints (:enable t))
@@ -386,6 +388,11 @@
   (setq TeX-parse-self t
         TeX-auto-save 1
         TeX-view-program-selection '((output-pdf "PDF Tools"))))
+
+(use-package markdown-mode
+  :ensure t
+  :config
+  (setq-default markdown-command "pandoc -s"))
 
 ;;; terminal
 
