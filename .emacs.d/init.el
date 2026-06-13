@@ -96,29 +96,6 @@
 (use-package diredfl
   :config (diredfl-global-mode 1))
 
-(use-package ligature
-  :ensure t
-  :config
-  (ligature-set-ligatures 't '(
-                               ("-" (rx (* "-") (? ">")))         ; -- -> --- -->
-                               ("=" (rx (* "=") (? ">")))         ; == => === ==>
-                               ("+" (rx (+ "+")))                 ; ++ +++
-                               ("_" (rx (+ "_")))                 ; __ ___
-                               ("|" (rx (+ "|")))                 ; || |||
-                               ("/" (rx (+ "/")))                 ; // ///
-                               ("<" (rx (| (+ "<")                ; << <<<
-                                           (: (+ "=") (? ">"))    ; <=> <== <==>
-                                           (: (+ "-") (? ">"))))) ; <- <-> <-- <-->
-                               (">" (rx (| (+ ">") "=")))         ; >> >= >>>
-                               ("." (rx (+ (any ".!?:"))))        ; .. .! .? .: ...
-                               (":" (rx (+ (any ".!?:"))))        ; :: :! :? :. :::
-                               ("?" (rx (+ (any ".!?:"))))        ; ?! ?: ?. ??
-                               ("!" (rx (+ (any ".!?:"))))        ; !: !? !. !!
-                               ("," (rx (+ (any ",;"))))          ; ,, ,;
-                               (";" (rx (+ (any ",;"))))          ; ;; ;,
-                               ))
-  (global-ligature-mode t))
-
 ;;; unicode font fallbacks
 
 (set-fontset-font t '(#x03e2 . #x03ef) "Lato")
@@ -396,11 +373,10 @@
 
 ;;; terminal
 
-(use-package vterm
-  :config (setq vterm-set-bold-highbright t
-                vterm-timer-delay 0))
+(use-package ghostel
+  :ensure t
+  :config (setq ghostel-bold-color 'bright))
 
-(global-set-key (kbd "C-c v") #'vterm)
-(global-set-key (kbd "C-c C-v") #'vterm-other-window)
+(global-set-key (kbd "C-c t") #'ghostel)
 
 ;;; init.el ends here
