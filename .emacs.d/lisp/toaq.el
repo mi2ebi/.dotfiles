@@ -405,6 +405,7 @@ set, insert a literal backtick instead."
     ("nanı" . ?\x0301)
     ("nenı" . ?\x0301)
     ("kaga" . ?\x0301)
+    ("meuq" . ?\x0301)
     ;; focus markers
     ("ku" . ?\x0301)
     ("beı" . ?\x0301)
