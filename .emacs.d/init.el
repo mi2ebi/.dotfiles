@@ -328,7 +328,7 @@
    '(:rust-analyzer
      (:check
       (:overrideCommand ["sh" "-c"
-                         "cargo xnitpick && cargo doc --no-deps --message-format=json"])
+                         "cargo xnitpick && cargo doc --no-deps --message-format=json --document-private-items"])
       :cargo (:features "all")
       :diagnostics
       (:experimental (:enable t) :styleLints (:enable t))

@@ -17,7 +17,6 @@ nitpick = """clippy --
   -W clippy::if_then_some_else_none
   -W clippy::impl_trait_in_params
   -W clippy::infinite_loop
-  -W clippy::iter_over_hash_type
   -W clippy::lossy_float_literal
   -W clippy::map_err_ignore
   -W clippy::map_with_unused_argument_over_ranges
@@ -59,7 +58,6 @@ xnitpick = """clippy --message-format=json --all-targets --
   -W clippy::if_then_some_else_none
   -W clippy::impl_trait_in_params
   -W clippy::infinite_loop
-  -W clippy::iter_over_hash_type
   -W clippy::lossy_float_literal
   -W clippy::map_err_ignore
   -W clippy::map_with_unused_argument_over_ranges
