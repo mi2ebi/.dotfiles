@@ -124,7 +124,7 @@ relative to the edit."
            (existing-tones (cl-remove-if-not #'toaq--tone-p
                                              (append (substring base-str 1) nil)))
            (existing-underdots (cl-remove-if (lambda (ch) (not (= ch ?\x0323)))
-                                              (append (substring base-str 1) nil)))
+                                             (append (substring base-str 1) nil)))
            (new-diacritics
             (cond
              ((= combining-char ?\x0323)
@@ -135,11 +135,9 @@ relative to the edit."
               (append existing-underdots (list combining-char)))))
            (is-bare (null new-diacritics))
            (actual-base (cond
-                         ((and is-bare (= base-char ?i)) ?ı)
-                         ((and (= base-char ?ı)
-                               (not (and (= combining-char ?\x0323) was-bare)))
-                          ?i)
-                         (t base-char)))
+                         ((not (memq base-char '(?i ?ı))) base-char)
+                         ((cl-some #'toaq--tone-p new-diacritics) ?i)
+                         (t ?ı)))
            (new-str (ucs-normalize-NFC-string
                      (concat (string actual-base)
                              (apply #'string new-diacritics))))
@@ -237,14 +235,6 @@ the buffer between START and END, in left-to-right order."
 
 (defun toaq--toned-nucleus (nuclei)
   "Return the last nucleus in NUCLEI whose first vowel already carries
-a tone mark (not counting underdot), or nil if none of them does."
-  (let (result)
-    (dolist (nucleus nuclei result)
-      (when (toaq--nucleus-has-tone-p nucleus)
-        (setq result nucleus)))))
-
-(defun toaq--toned-nucleus (nuclei)
-  "Return the last nucleus in NUCLEI whose first vowel already carries
 a tone mark, or nil if none of them does."
   (let (result)
     (dolist (nucleus nuclei result)
@@ -322,15 +312,6 @@ If escaped, inserts LITERAL instead."
 (defun toaq-tilde ()
   (interactive)
   (toaq--apply-diacritic ?\x0303 "~"))
-
-(defun toaq--last-diacritic-nucleus (nuclei)
-  "Return the last nucleus in NUCLEI that carries any diacritic
-(tone or underdot), or nil if none does."
-  (let (result)
-    (dolist (nucleus nuclei result)
-      (when (or (toaq--nucleus-has-tone-p nucleus)
-                (toaq--nucleus-has-underdot-p nucleus))
-        (setq result nucleus)))))
 
 (defun toaq--last-underdot-nucleus (nuclei)
   "Return the last nucleus in NUCLEI that carries an underdot, or nil."
