@@ -12,7 +12,7 @@
             marginalia markdown-mode mips-mode modus-themes moody
             multiple-cursors orderless org-fragtog pdf-tools
             rainbow-delimiters raku-mode surround uiua-ts-mode vertico
-            vterm web-mode))
+            vterm vue3-mode web-mode))
  '(safe-local-variable-values
    '((eval add-hook 'eglot-managed-mode-hook
            (lambda nil (eglot-inlay-hints-mode -1)) nil t))))

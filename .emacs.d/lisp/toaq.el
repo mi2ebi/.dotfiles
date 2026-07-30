@@ -92,20 +92,25 @@ and consumed by `toaq--maybe-apply-default-tone'.")
              (not (lookup-key toaq-keymap (this-command-keys))))
     (setq toaq--escape-next nil)))
 
+(defun toaq--extent-diacritics (extent)
+  "Return (BASE-CHAR . DIACRITICS) for the character cluster spanning
+EXTENT, where DIACRITICS is the list of combining characters (tones
+and/or underdot) already applied to it, in NFD order."
+  (let ((base-str (ucs-normalize-NFD-string
+                    (buffer-substring (car extent) (cdr extent)))))
+    (cons (aref base-str 0) (append (substring base-str 1) nil))))
+
 (defun toaq--nucleus-has-tone-p (nucleus)
   "Return t if the first vowel of NUCLEUS already carries a tone mark
 (not counting underdot)."
-  (let* ((extent (toaq--char-extent (car nucleus)))
-         (base-str (ucs-normalize-NFD-string
-                    (buffer-substring (car extent) (cdr extent)))))
-    (cl-some #'toaq--tone-p (append (substring base-str 1) nil))))
+  (cl-some #'toaq--tone-p
+           (cdr (toaq--extent-diacritics (toaq--char-extent (car nucleus))))))
 
 (defun toaq--nucleus-has-underdot-p (nucleus)
   "Return t if the first vowel of NUCLEUS carries an underdot."
-  (let* ((extent (toaq--char-extent (car nucleus)))
-         (base-str (ucs-normalize-NFD-string
-                    (buffer-substring (car extent) (cdr extent)))))
-    (cl-some (lambda (ch) (= ch ?\x0323)) (append (substring base-str 1) nil))))
+  (and (memq ?\x0323
+             (cdr (toaq--extent-diacritics (toaq--char-extent (car nucleus)))))
+       t))
 
 (defun toaq--set-nucleus-tone (nucleus combining-char)
   "Apply COMBINING-CHAR as the tone on the first vowel of NUCLEUS,
@@ -115,16 +120,12 @@ relative to the edit."
   (let ((target-pos (car nucleus))
         (original-pos (point)))
     (let* ((extent (toaq--char-extent target-pos))
-           (base-str (ucs-normalize-NFD-string
-                      (buffer-substring (car extent) (cdr extent))))
-           (base-char (aref base-str 0))
-           (was-bare (= (length base-str) 1))
-           (has-existing-v (cl-some (lambda (ch) (= ch ?\x0323))
-                                    (append (substring base-str 1) nil)))
-           (existing-tones (cl-remove-if-not #'toaq--tone-p
-                                             (append (substring base-str 1) nil)))
-           (existing-underdots (cl-remove-if (lambda (ch) (not (= ch ?\x0323)))
-                                             (append (substring base-str 1) nil)))
+           (diacritics (toaq--extent-diacritics extent))
+           (base-char (car diacritics))
+           (has-existing-v (memq ?\x0323 (cdr diacritics)))
+           (existing-tones (cl-remove-if-not #'toaq--tone-p (cdr diacritics)))
+           (existing-underdots (cl-remove-if-not (lambda (ch) (= ch ?\x0323))
+                                                 (cdr diacritics)))
            (new-diacritics
             (cond
              ((= combining-char ?\x0323)
@@ -133,7 +134,6 @@ relative to the edit."
                 (append existing-tones (list ?\x0323))))
              (t
               (append existing-underdots (list combining-char)))))
-           (is-bare (null new-diacritics))
            (actual-base (cond
                          ((not (memq base-char '(?i ?ı))) base-char)
                          ((cl-some #'toaq--tone-p new-diacritics) ?i)
@@ -157,16 +157,14 @@ only has an underdot and no tone, remove the underdot too. Moves point
 to track its position relative to the edit."
   (let* ((start (car nucleus))
          (extent (toaq--char-extent start))
-         (cluster-nfd (ucs-normalize-NFD-string
-                       (buffer-substring (car extent) (cdr extent))))
-         (has-tone (cl-some #'toaq--tone-p (append (substring cluster-nfd 1) nil)))
-         (has-underdot (cl-some (lambda (ch) (= ch ?\x0323))
-                                 (append (substring cluster-nfd 1) nil)))
+         (diacritics (toaq--extent-diacritics extent))
+         (base-char (car diacritics))
+         (has-tone (cl-some #'toaq--tone-p (cdr diacritics)))
+         (has-underdot (memq ?\x0323 (cdr diacritics)))
          (keep-underdot (and has-tone has-underdot))
          (new-diacritics (if keep-underdot '(?\x0323) nil))
          (new-str (ucs-normalize-NFC-string
-                   (concat (string (let ((base (aref cluster-nfd 0)))
-                                     (if (= base ?i) ?ı base)))
+                   (concat (string (if (= base-char ?i) ?ı base-char))
                            (apply #'string new-diacritics))))
          (delta (- (length new-str) (- (cdr extent) (car extent))))
          (orig-pos (point)))
@@ -397,7 +395,6 @@ set, insert a literal backtick instead."
     ("joao" . ?\x0301)
     ("shuq" . ?\x0301)
     ("keao" . ?\x0301)
-    ("meuq" . ?\x0301)
     ("seu" . ?\x0301)
     ("cuom" . ?\x0301)
     ;; connectives
@@ -509,17 +506,23 @@ finished, then inserts CHAR literally."
     (define-key map (kbd ")") (toaq--make-boundary-inserter ")"))
     map))
 
+(defvar-local toaq--saved-local-map nil
+  "The buffer's local keymap from before the Toaq input method was
+activated, so `toaq-deactivate' can restore it.")
+
 (defun toaq-activate ()
   (when (string= current-input-method "toaq")
-    (set-keymap-parent toaq-keymap (current-local-map))
-    (use-local-map toaq-keymap)
+    (setq toaq--saved-local-map (current-local-map))
+    (let ((map (copy-keymap toaq-keymap)))
+      (set-keymap-parent map toaq--saved-local-map)
+      (use-local-map map))
     (add-hook 'pre-command-hook #'toaq--clear-escape-on-unbound nil t)))
 (defun toaq-deactivate ()
   (when (string= current-input-method "toaq")
     (setq toaq--escape-next nil)
     (remove-hook 'pre-command-hook #'toaq--clear-escape-on-unbound t)
-    (when (eq (current-local-map) toaq-keymap)
-      (use-local-map (keymap-parent toaq-keymap)))))
+    (use-local-map toaq--saved-local-map)
+    (setq toaq--saved-local-map nil)))
 
 (with-eval-after-load 'quail
   (add-hook 'input-method-activate-hook #'toaq-activate)
