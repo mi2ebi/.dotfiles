@@ -81,12 +81,9 @@
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
-(use-package moody
-  :config
-  (moody-replace-mode-line-front-space)
-  (moody-replace-mode-line-buffer-identification)
-  (set-face-attribute 'mode-line-active nil :box 'unspecified)
-  (set-face-attribute 'mode-line-inactive nil :box 'unspecified))
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1))
 
 (use-package breadcrumb
   :config (breadcrumb-mode 1))
