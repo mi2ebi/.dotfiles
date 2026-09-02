@@ -118,6 +118,7 @@ fn main() {
     let contents = fs::read_to_string("seqs.txt").expect("can't open seqs.txt");
     let mut warnings = vec![];
     let mut seen = HashSet::new();
+    let mut seqs_lines = Vec::new();
     let mut entries = contents
         .lines()
         .enumerate()
@@ -163,6 +164,7 @@ fn main() {
             if !seen.insert(s.to_string()) {
                 warnings.push(format!("line {i}: duplicate seq {s}"));
             }
+            seqs_lines.push((n, line.to_string()));
             let name = format!("seq:{}", s.chars().map(to_slug).collect::<Vec<_>>().join("-"));
             let keys = s.chars().map(to_key).collect::<Vec<_>>().join(" ");
             Some((name, keys, xchar))
@@ -175,12 +177,17 @@ fn main() {
         }
     }
     entries.extend(extra);
+    entries.sort_by_key(|(_, _, c)| *c);
     if !warnings.is_empty() {
         for w in warnings {
             println!("\x1b[93m{w}\x1b[m");
         }
         exit(1);
     }
+    seqs_lines.sort_by_key(|(n, _)| *n);
+    let sorted_seqs =
+        seqs_lines.into_iter().map(|(_, line)| line).collect::<Vec<_>>().join("\n") + "\n";
+    fs::write("seqs.txt", sorted_seqs).unwrap();
     let mut out = "(defvirtualkeys\n".to_string();
     for (name, _, c) in &entries {
         writeln!(out, "  {name} (unicode {c})").unwrap();
