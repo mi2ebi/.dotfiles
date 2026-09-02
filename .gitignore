@@ -2,6 +2,7 @@
 !.cabal
 !.cargo
 !.config
+.config/kanata/target
 !.emacs.d
 
 !.clang-format

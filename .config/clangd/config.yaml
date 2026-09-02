@@ -9,7 +9,7 @@ CompileFlags:
 Diagnostics:
   UnusedIncludes: Strict
   ClangTidy:
-    Add: [modernize-*, bugprone-*, readability-*, performance-*, cppcoreguidelines-*]
+    Add: [modernize-*, bugprone-*, readability-*, performance-*, cppcoreguidelines-*, misc-*]
     Remove:
       - modernize-use-trailing-return-type
       - readability-braces-around-statements
@@ -22,3 +22,5 @@ Diagnostics:
       - cppcoreguidelines-avoid-magic-numbers
       - cppcoreguidelines-owning-memory
       - cppcoreguidelines-pro-bounds-pointer-arithmetic
+      - misc-no-recursion
+      - misc-non-private-member-variables-in-classes
