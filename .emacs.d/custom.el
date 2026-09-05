@@ -14,7 +14,10 @@
             org-fragtog pdf-tools rainbow-delimiters raku-mode
             surround uiua-ts-mode vertico vterm vue3-mode web-mode))
  '(safe-local-variable-values
-   '((eval add-hook 'eglot-managed-mode-hook
+   '((eglot-server-programs
+      ((c-mode c++-mode) "clangd"
+       "--query-driver=/usr/bin/riscv64-linux-gnu-*"))
+     (eval add-hook 'eglot-managed-mode-hook
            (lambda nil (eglot-inlay-hints-mode -1)) nil t))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
