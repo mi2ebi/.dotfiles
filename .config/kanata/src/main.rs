@@ -60,8 +60,8 @@ fn to_key(c: char) -> String {
         '{' => "S-[",
         ']' => "]",
         '}' => "S-]",
-        '\\' => "\\",
-        '|' => "S-\\",
+        '\\' => r"\",
+        '|' => r"S-\",
         ';' => ";",
         ':' => "S-;",
         '\'' => "'",
@@ -105,47 +105,52 @@ fn main() {
                 warnings.push(format!("expected 2 or 3 fields, got {}: {line}", fields.len()));
                 return None;
             }
-            let s = fields[0];
-            let x = fields[1];
-            if !s.chars().all(|ch| ch.is_ascii_graphic()) {
-                warnings.push(format!("seq {s} has non-graphical-ascii chars"));
+            let seq = fields[0];
+            if !seq.chars().all(|ch| ch.is_ascii_graphic()) {
+                warnings.push(format!("seq {seq} has non-graphical-ascii chars"));
             }
-            if s.len() > 4 {
-                warnings.push(format!("seq {s} is {} characters, max is 4", s.len()));
+            if seq.len() > 4 {
+                warnings.push(format!("seq {seq} is {} characters, max is 4", seq.len()));
             }
-            let Ok(n) = u32::from_str_radix(x, 16) else {
-                warnings.push(format!("{x} isn't valid hex"));
+            let hexes = fields[1];
+            let cps = hexes
+                .split(',')
+                .map(|hex| u32::from_str_radix(hex, 16))
+                .collect::<Result<Vec<_>, _>>();
+            let Ok(cps) = cps else {
+                warnings.push(format!("{hexes} isn't valid hex codepoint list"));
                 return None;
             };
-            let Some(xchar) = char::from_u32(n) else {
-                warnings.push(format!("{n:x} isn't a valid unicode codepoint"));
+            let Some(xchrs) = cps.iter().map(|&n| char::from_u32(n)).collect::<Option<Vec<_>>>()
+            else {
+                warnings.push(format!("{hexes} contains an invalid unicode codepoint"));
                 return None;
             };
-            let x = format!("{n:x}");
-            let mut line = format!("{s} {x}");
+            let mut line = format!(
+                "{seq} {}",
+                cps.iter().map(|n| format!("{n:x}")).collect::<Vec<_>>().join(",")
+            );
             if fields.len() == 3 {
-                let c = fields[2];
-                line = format!("{line} {c}");
-                let mut cchars = c.chars();
-                match (cchars.next(), cchars.next()) {
-                    (Some(given), None) if given == xchar => {}
-                    (Some(given), None) => warnings.push(format!(
-                        "hex {x} (={xchar:?}) doesn't match char {given:?} (={:x})",
-                        given as u32
-                    )),
-                    _ => warnings.push(format!("char field {c:?} isn't a single character")),
+                let chrs = fields[2];
+                line = format!("{line} {chrs}");
+                let given = chrs.chars().collect::<Vec<_>>();
+                if given != xchrs {
+                    warnings.push(format!(
+                        "hexes {hexes} (={:?}) don't match chars {chrs:?}",
+                        xchrs.iter().collect::<String>()
+                    ));
                 }
             }
-            if !seen.insert(s.to_string()) {
-                warnings.push(format!("duplicate seq {s}"));
+            if !seen.insert(seq.to_string()) {
+                warnings.push(format!("duplicate seq {seq}"));
             }
-            seqs_lines.push((n, line));
-            let name = format!("seq:{}", s.chars().map(to_slug).collect::<Vec<_>>().join("-"));
-            let keys = s.chars().map(to_key).collect::<Vec<_>>().join(" ");
-            Some((name, keys, xchar))
+            seqs_lines.push((cps[0], line));
+            let name = format!("seq:{}", seq.chars().map(to_slug).collect::<Vec<_>>().join("-"));
+            let keys = seq.chars().map(to_key).collect::<Vec<_>>().join(" ");
+            Some((name, keys, xchrs))
         })
         .collect::<Vec<_>>();
-    entries.sort_by_key(|(_, _, c)| *c);
+    entries.sort_by_key(|(_, _, c)| c.clone());
     if !warnings.is_empty() {
         for w in warnings {
             println!("\x1b[93m{w}\x1b[m");
@@ -157,8 +162,17 @@ fn main() {
         seqs_lines.into_iter().map(|(_, line)| line).collect::<Vec<_>>().join("\n") + "\n";
     fs::write("seqs.txt", sorted_seqs).unwrap();
     let mut out = "(defvirtualkeys\n".to_string();
-    for (name, _, c) in &entries {
-        writeln!(out, "  {name} (unicode {c})").unwrap();
+    for (name, _, chars) in &entries {
+        if chars.len() == 1 {
+            writeln!(out, "  {name} (unicode u+{:x})", chars[0] as u32).unwrap();
+        } else {
+            let actions = chars
+                .iter()
+                .map(|c| format!("(unicode u+{:x})", *c as u32))
+                .collect::<Vec<_>>()
+                .join(" ");
+            writeln!(out, "  {name} (macro {actions})").unwrap();
+        }
     }
     out += ")\n(defseq\n";
     for (name, keys, _) in &entries {
