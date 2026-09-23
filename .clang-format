@@ -13,9 +13,6 @@ AlignAfterOpenBracket: false
 AlignOperands: AlignAfterOperator
 PointerAlignment: Right
 
-AllowShortIfStatementsOnASingleLine: Never
-AllowShortLoopsOnASingleLine: false
-
 # brackets
 BreakBeforeBraces: Attach
 RemoveBracesLLVM: true

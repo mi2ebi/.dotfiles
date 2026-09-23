@@ -13,6 +13,7 @@ Diagnostics:
     Remove:
       - modernize-use-trailing-return-type
       - readability-braces-around-statements
+      - readability-function-cognitive-complexity
       - readability-identifier-length
       - readability-implicit-bool-conversion
       - readability-isolate-declaration

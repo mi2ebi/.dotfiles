@@ -12,7 +12,8 @@
             json5-ts-mode ligature magit marginalia markdown-mode
             mips-mode modus-themes moody multiple-cursors orderless
             org-fragtog pdf-tools rainbow-delimiters raku-mode
-            surround uiua-ts-mode vertico vterm vue3-mode web-mode))
+            sed-mode surround uiua-ts-mode vertico vterm vue3-mode
+            web-mode))
  '(safe-local-variable-values
    '((eglot-server-programs
       ((c-mode c++-mode) "clangd"

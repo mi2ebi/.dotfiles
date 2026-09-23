@@ -48,13 +48,15 @@
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (require 'toaq)
 (require 'pacifism)
-(require 'utils)
+(require 'utils) 
+(require 'unicode)
 
 ;;; appearance
 
 (set-face-attribute 'default nil :family "iosevie" :height 120)
 (set-face-attribute 'fixed-pitch nil :family "iosevie")
 (set-face-attribute 'variable-pitch nil :family "Lato" :height 130)
+(setq use-default-font-for-symbols nil)
 
 (use-package modus-themes
   :config
@@ -178,7 +180,7 @@
 (set-fontset-font t '(#x2600 . #x27bf) "Noto Color Emoji" nil 'append)
 (set-fontset-font t '(#x27c0 . #x2bff) "IBM Plex Math" nil 'append)
 (set-fontset-font t '(#x1d000 . #x1d1ff) "Noto Music" nil 'append)
-(set-fontset-font t '(#x1d400 . #x1d7ff) "IBM Plex Math" nil 'append)
+(set-fontset-font t '(#x1d400 . #x1d7ff) "STIX" nil 'append)
 (set-fontset-font t '(#x1df00 . #x1dfff) "Andika" nil 'append)
 (set-fontset-font t '(#x1f000 . #x1faff) "Noto Color Emoji")
 (set-fontset-font t '(#x20000 . #x2fa1f) "Plangothic P1" nil 'append)

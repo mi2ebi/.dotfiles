@@ -3,6 +3,7 @@
   allow-hardware-repeat false
   sequence-timeout 3000
   sequence-input-mode visible-backspaced
+                      ;; ^ probaby doesn't like having keys that don't (always) print characters be part of sequences 
   sequence-backtrack-modcancel no
 )
 
