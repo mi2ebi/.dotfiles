@@ -37,6 +37,7 @@ fn to_slug(c: char) -> String {
         '.' => "peri",
         '/' => "slas",
         '?' => "ques",
+        '␣' => "spac",
         other => panic!("no slug defined for {other:?}"),
     }
     .to_string()
@@ -82,6 +83,7 @@ fn to_key(c: char) -> String {
         '*' => "S-8",
         '(' => "S-9",
         ')' => "S-0",
+        '␣' => "spc",
         other => panic!("no key mapping for {other:?} (us qwerty only)"),
     }
     .to_string()
@@ -106,11 +108,8 @@ fn main() {
                 return None;
             }
             let seq = fields[0];
-            if !seq.chars().all(|ch| ch.is_ascii_graphic()) {
+            if !seq.chars().all(|ch| ch.is_ascii_graphic() || ch == '␣') {
                 warnings.push(format!("seq {seq} has non-graphical-ascii chars"));
-            }
-            if seq.len() > 4 {
-                warnings.push(format!("seq {seq} is {} characters, max is 4", seq.len()));
             }
             let hexes = fields[1];
             let cps = hexes

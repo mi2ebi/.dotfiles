@@ -7,13 +7,13 @@
  '(doc-view-continuous t)
  '(package-selected-packages
    '(auctex breadcrumb buffer-move cape consult corfu csv-mode diff-hl
-            diredfl doom-modeline drag-stuff emmet-mode
-            exec-path-from-shell ghostel haskell-ts-mode helpful
-            json5-ts-mode ligature magit marginalia markdown-mode
-            mips-mode modus-themes moody multiple-cursors orderless
-            org-fragtog pdf-tools rainbow-delimiters raku-mode
-            sed-mode surround uiua-ts-mode vertico vterm vue3-mode
-            web-mode))
+            diredfl doom-modeline drag-stuff eglot emmet-mode
+            exec-path-from-shell fish-mode ghostel haskell-ts-mode
+            helpful json5-ts-mode ligature magit marginalia
+            markdown-mode mips-mode modus-themes moody
+            multiple-cursors orderless org-fragtog pdf-tools
+            rainbow-delimiters raku-mode sed-mode surround
+            uiua-ts-mode vertico vterm vue3-mode web-mode))
  '(safe-local-variable-values
    '((eglot-server-programs
       ((c-mode c++-mode) "clangd"
