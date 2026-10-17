@@ -8,9 +8,9 @@
  '(package-selected-packages
    '(auctex breadcrumb buffer-move cape consult corfu csv-mode diff-hl
             diredfl doom-modeline drag-stuff eglot emmet-mode
-            exec-path-from-shell fish-mode ghostel haskell-ts-mode
-            helpful json5-ts-mode ligature magit marginalia
-            markdown-mode mips-mode modus-themes moody
+            exec-path-from-shell fish-mode ghostel graphviz-dot-mode
+            haskell-ts-mode helpful json5-ts-mode ligature magit
+            marginalia markdown-mode mips-mode modus-themes moody
             multiple-cursors orderless org-fragtog pdf-tools
             rainbow-delimiters raku-mode sed-mode surround
             uiua-ts-mode vertico vterm vue3-mode web-mode))

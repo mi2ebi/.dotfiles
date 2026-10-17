@@ -209,6 +209,8 @@
 
 ;;; lsp / languages
 
+(setq project-vc-extra-root-markers '("Cargo.toml"))
+
 (use-package flymake
   :bind ("<left-fringe> <mouse-3>" . flymake-show-project-diagnostics))
 
@@ -222,6 +224,8 @@
 (add-to-list 'auto-mode-alist '("\\.hh\\'" . c++-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.hxx\\'" . c++-ts-mode))
 (add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-ts-mode))
 (add-to-list 'treesit-language-source-alist
              '(c "https://github.com/tree-sitter/tree-sitter-c"))
 (add-to-list 'treesit-language-source-alist
@@ -234,19 +238,20 @@
 (use-package eglot
   :bind ("C-." . eglot-code-actions)
   :hook
+  (c-ts-mode . eglot-ensure)
   (c++-ts-mode . eglot-ensure)
   (rust-ts-mode . eglot-ensure)
   (raku-mode . eglot-ensure)
+  (python-mode . eglot-ensure)
   (eglot-managed-mode . (lambda ()
                           (add-hook 'before-save-hook #'eglot-format-buffer nil t)))
   :config
-  (add-to-list
-   'eglot-server-programs
-   (cons 'raku-mode
-         (list "node"
-               (expand-file-name
-                "~/.local/src/RakuNavigator/server/out/server.js")
-               "--stdio")))
+  (add-to-list 'eglot-server-programs
+               (cons 'raku-mode
+                     (list "node"
+                           (expand-file-name
+                            "~/.local/src/RakuNavigator/server/out/server.js")
+                           "--stdio")))
   (setq-default
    eglot-workspace-configuration
    '(:rust-analyzer
@@ -288,7 +293,8 @@
   (setq-default TeX-engine 'xetex)
   (setq TeX-parse-self t
         TeX-auto-save 1
-        TeX-view-program-selection '((output-pdf "PDF Tools"))))
+        TeX-view-program-selection '((output-pdf "PDF Tools"))
+        font-latex-fontify-script nil))
 
 (use-package markdown-mode
   :ensure t
