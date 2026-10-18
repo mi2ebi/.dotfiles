@@ -47,7 +47,7 @@
 ;;; local lisp
 
 (add-to-list 'load-path "~/.emacs.d/lisp")
-(require 'madoromi)
+(require 'haru)
 (require 'pacifism)
 (require 'toaq)
 (require 'unicode)
@@ -63,10 +63,10 @@
 (use-package modus-themes
   :config
   (setq modus-themes-italic-constructs t
-        modus-vivendi-tinted-palette-overrides (madoromi-overrides madoromi-yoru)
-        modus-operandi-tinted-palette-overrides (madoromi-overrides madoromi-hiru)
+        modus-vivendi-tinted-palette-overrides (haru-overrides haru-yoru)
+        modus-operandi-tinted-palette-overrides (haru-overrides haru-hiru)
         modus-themes-to-toggle '(modus-vivendi-tinted modus-operandi-tinted))
-  (add-hook 'modus-themes-after-load-theme-hook #'madoromi-apply-faces)
+  (add-hook 'modus-themes-after-load-theme-hook #'haru-apply-faces)
   (modus-themes-load-theme 'modus-vivendi-tinted))
 
 (global-set-key (kbd "<f5>") #'modus-themes-toggle)
