@@ -1,9 +1,5 @@
 local wezterm = require "wezterm"
 local a = wezterm.action
-local vivendi = wezterm.color.get_builtin_schemes()["Modus-Vivendi-Tinted"]
-vivendi.ansi[8] = "#c6daff" -- fg-alt
-vivendi.brights[1] = "#61647a" -- border
-vivendi.brights[8] = "white"
 return {
     adjust_window_size_when_changing_font_size = false,
     window_decorations = "TITLE | RESIZE",
@@ -12,7 +8,7 @@ return {
     bold_brightens_ansi_colors = true,
     inactive_pane_hsb = { saturation = 1, brightness = 1 },
     bidi_enabled = true, -- a bit jank
-    colors = vivendi,
+    color_scheme = "madoromi haru-yoru",
     warn_about_missing_glyphs = false,
     unicode_version = 17,
     font_size = 13,

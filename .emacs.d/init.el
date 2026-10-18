@@ -47,10 +47,11 @@
 ;;; local lisp
 
 (add-to-list 'load-path "~/.emacs.d/lisp")
-(require 'toaq)
+(require 'madoromi)
 (require 'pacifism)
-(require 'utils) 
+(require 'toaq)
 (require 'unicode)
+(require 'utils) 
 
 ;;; appearance
 
@@ -61,25 +62,14 @@
 
 (use-package modus-themes
   :config
-  (setq
-   modus-themes-bold-constructs t
-   modus-themes-italic-constructs t
-   modus-themes-common-palette-overrides
-   '(
-     (bg-region bg-magenta-subtle)
-     (fg-region unspecified)
-     (bg-mode-line-active bg-magenta-subtle)
-     (bg-mode-line-inactive bg-magenta-nuanced)
-     (fringe bg-magenta-nuanced)
-     (bg-term-magenta-bright magenta-warmer)
-     (fg-term-magenta-bright magenta-warmer)
-     (bg-term-cyan-bright cyan-warmer)
-     (fg-term-cyan-bright cyan-warmer)
-     )
-   modus-vivendi-tinted-palette-overrides '((bg-main "#000"))
-   modus-operandi-tinted-palette-overrides '((bg-main "#fff"))
-   )
+  (setq modus-themes-italic-constructs t
+        modus-vivendi-tinted-palette-overrides (madoromi-overrides madoromi-yoru)
+        modus-operandi-tinted-palette-overrides (madoromi-overrides madoromi-hiru)
+        modus-themes-to-toggle '(modus-vivendi-tinted modus-operandi-tinted))
+  (add-hook 'modus-themes-after-load-theme-hook #'madoromi-apply-faces)
   (modus-themes-load-theme 'modus-vivendi-tinted))
+
+(global-set-key (kbd "<f5>") #'modus-themes-toggle)
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
