@@ -1,0 +1,53 @@
+# name: 'Madoromi'
+
+[light]
+fish_color_command 1955bf
+fish_color_keyword 6928bd
+fish_color_quote 5e8933
+fish_color_comment 877b8c -i
+fish_color_param 584a5c
+fish_color_option 2678af
+fish_color_operator 008bae
+fish_color_escape b25d9d
+fish_color_redirection fd5217
+fish_color_end 77697c
+fish_color_error ce2700
+fish_color_cancel ce2700
+fish_color_autosuggestion 998d9e
+fish_color_selection --background=d2c8d6
+fish_color_search_match --background=f8b8a9
+fish_pager_color_background ece5ef
+fish_pager_color_completion 584a5c
+fish_pager_color_description 77697c -i
+fish_pager_color_prefix 6928bd
+fish_pager_color_progress 77697c
+fish_pager_color_selected_background c8bccd
+fish_pager_color_selected_completion 584a5c
+fish_pager_color_selected_prefix 6928bd
+fish_pager_color_selected_description 77697c -i
+
+[dark]
+fish_color_command 6eadff
+fish_color_keyword ddb3ff
+fish_color_quote c1dd4a
+fish_color_comment 9f93a4 -i
+fish_color_param e1d1e7
+fish_color_option 60c9f3
+fish_color_operator 88d9eb
+fish_color_escape fe8dc0
+fish_color_redirection ffbb74
+fish_color_end b7a8bd
+fish_color_error ff8b79
+fish_color_cancel ff8b79
+fish_color_autosuggestion 8a7e8f
+fish_color_selection --background=473d4a
+fish_color_search_match --background=715441
+fish_pager_color_background 1c151f
+fish_pager_color_completion e1d1e7
+fish_pager_color_description b7a8bd -i
+fish_pager_color_prefix ddb3ff
+fish_pager_color_progress b7a8bd
+fish_pager_color_selected_background 4e4352
+fish_pager_color_selected_completion e1d1e7
+fish_pager_color_selected_prefix ddb3ff
+fish_pager_color_selected_description b7a8bd -i
