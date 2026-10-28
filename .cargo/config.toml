@@ -6,6 +6,7 @@ nitpick = """clippy --workspace --all-targets --
   -A clippy::too_many_lines
 
   -W clippy::nursery
+  -A clippy::redundant_pub_crate
 
   -W clippy::allow_attributes_without_reason
   -W clippy::create_dir
@@ -48,6 +49,7 @@ xnitpick = """clippy --workspace --message-format=json --all-targets --
   -A clippy::too_many_lines
 
   -W clippy::nursery
+  -A clippy::redundant_pub_crate
 
   -W clippy::allow_attributes_without_reason
   -W clippy::create_dir

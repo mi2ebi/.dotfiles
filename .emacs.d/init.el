@@ -24,7 +24,8 @@
  tab-width 2
  standard-indent 2
  backup-directory-alist '(("." . "~/.emacs.d/backups"))
- auto-save-default nil)
+ auto-save-default nil
+ select-active-regions nil)
 
 (setq inhibit-startup-screen t)
 (global-auto-revert-mode 1)
